@@ -2,7 +2,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
@@ -50,17 +50,17 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[M]",      monocle },
-	{ "[@]",      spiral },
-	{ "[\\]",     dwindle },
-	{ "H[]",      deck },
-	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
-	{ "HHH",      grid },
-	{ "###",      nrowgrid },
-	{ "---",      horizgrid },
-	{ ":::",      gaplessgrid },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
+	// { "[@]",      spiral },
+	// { "[\\]",     dwindle },
+	// { "H[]",      deck },
+	// { "TTT",      bstack },
+	// { "===",      bstackhoriz },
+	// { "HHH",      grid },
+	// { "###",      nrowgrid },
+	// { "---",      horizgrid },
+	// { ":::",      gaplessgrid },
+	// { "|M|",      centeredmaster },
+	// { ">M>",      centeredfloatingmaster },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
@@ -88,8 +88,13 @@ static const char *upvol[] = { "wpctl", "set-volume", "-l", "1", "@DEFAULT_AUDIO
 static const char *mutemic[] = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL };
 
 /* backlight */
-static const char *dimmer[] = { "xbacklight", "-dec", "5", NULL };
-static const char *brighter[] = { "xbacklight", "-inc", "5", NULL };
+static const char *dimmer[] = { "brightnessctl", "set", "5%-", "-n1063", NULL };
+static const char *brighter[] = { "brightnessctl", "set", "5%+", NULL };
+
+/* screenshot */
+static const char *[] = { "", NULL };
+static const char *[] = { "", NULL };
+static const char *[] = { "", NULL };
 
 /* multimedia */
 static const char *playpause[] = { "playerctl", "play-pause", NULL };
