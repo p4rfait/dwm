@@ -50,17 +50,17 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[M]",      monocle },
-	// { "[@]",      spiral },
-	// { "[\\]",     dwindle },
-	// { "H[]",      deck },
-	// { "TTT",      bstack },
-	// { "===",      bstackhoriz },
-	// { "HHH",      grid },
-	// { "###",      nrowgrid },
-	// { "---",      horizgrid },
-	// { ":::",      gaplessgrid },
-	// { "|M|",      centeredmaster },
-	// { ">M>",      centeredfloatingmaster },
+	{ "[@]",      spiral },
+	{ "[\\]",     dwindle },
+	{ "H[]",      deck },
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	{ "HHH",      grid },
+	{ "###",      nrowgrid },
+	{ "---",      horizgrid },
+	{ ":::",      gaplessgrid },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
@@ -91,16 +91,14 @@ static const char *mutemic[] = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", 
 static const char *dimmer[] = { "brightnessctl", "set", "5%-", "-n1063", NULL };
 static const char *brighter[] = { "brightnessctl", "set", "5%+", NULL };
 
-/* screenshot */
-static const char *[] = { "", NULL };
-static const char *[] = { "", NULL };
-static const char *[] = { "", NULL };
-
 /* multimedia */
 static const char *playpause[] = { "playerctl", "play-pause", NULL };
 static const char *stop[] = { "playerctl", "stop", NULL };
 static const char *previous[] = { "playerctl", "previous", NULL };
 static const char *next[] = { "playerctl", "next", NULL };
+
+/* lock */
+static const char *lock[] = { "slock", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -164,11 +162,19 @@ static const Key keys[] = {
   { 0, XF86XK_MonBrightnessDown, spawn, {.v = dimmer } },
   { 0, XF86XK_MonBrightnessUp,   spawn, {.v = brighter } },
 
+	/* screenshot */
+	{ MODKEY|ShiftMask, XK_s, spawn, SHCMD("maim -s | tee ~/Pictures/Screenshot_$(date +%d-%m-%Y_%s).png | xclip -selection clipboard -t image/png") },
+	{ 0, XK_Print, spawn, SHCMD("maim | tee ~/Pictures/Screenshot_$(date +%d-%m-%Y_%s).png | xclip -selection clipboard -t image/png") },
+	// Esto lo voy a cambiar por un scrip en el futuro
+
 	/* multimedia */
 	{ 0, XF86XK_AudioPlay, spawn, {.v = playpause } },
   { 0, XF86XK_AudioStop, spawn, {.v = stop } },
   { 0, XF86XK_AudioPrev, spawn, {.v = previous } },
   { 0, XF86XK_AudioNext, spawn, {.v = next } },
+
+  /* lock */
+	{ MODKEY|ShiftMask , XK_l, spawn, {.v = lock } },
 };
 
 /* button definitions */
