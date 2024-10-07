@@ -87,8 +87,8 @@ static const char *termcmd[]  = { "st", NULL };
 
 /* audio */
 static const char *mute[] = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
-static const char *downvol[] = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "2%-", NULL };
-static const char *upvol[] = { "wpctl", "set-volume", "-l", "1", "@DEFAULT_AUDIO_SINK@", "2%+", NULL };
+static const char *downvol[] = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
+static const char *upvol[] = { "wpctl", "set-volume", "-l", "1", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
 static const char *mutemic[] = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL };
 
 /* backlight */
@@ -104,11 +104,15 @@ static const char *next[] = { "playerctl", "next", NULL };
 /* lock */
 static const char *lock[] = { "slock", NULL };
 
+/* clipboard */
+static const char *clipboard[] = { "clipcat-menu", NULL };
+
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = clipboard } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
