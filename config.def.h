@@ -11,13 +11,13 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10" };
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
+static const char *fonts[]          = { "GohuFont uni14 Nerd Font:pixelsize=14" };
+static const char dmenufont[]       = "GohuFont uni14 Nerd Font:pixelsize=14";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#31748f";
+static const char col_cyan[]        = "#d65d0e";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -102,7 +102,7 @@ static const char *previous[] = { "playerctl", "previous", NULL };
 static const char *next[] = { "playerctl", "next", NULL };
 
 /* lock */
-static const char *lock[] = { "slock", NULL };
+// static const char *lock[] = { "slock", NULL };
 
 /* clipboard */
 static const char *clipboard[] = { "clipcat-menu", NULL };
@@ -188,7 +188,7 @@ static const Key keys[] = {
   { 0, XF86XK_AudioNext, spawn, {.v = next } },
 
   /* lock */
-	{ MODKEY|ShiftMask , XK_l, spawn, {.v = lock } },
+	// { MODKEY|ShiftMask , XK_l, spawn, {.v = lock } },
 };
 
 /* button definitions */
