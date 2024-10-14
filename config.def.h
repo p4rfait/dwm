@@ -11,6 +11,8 @@ static const unsigned int gappov    = 10;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no standard bar */
 static const int topbar             = 1;        /* 0 means standard bar at bottom */
+static const int vertpad            = 10;       /* vertical padding of bar */
+static const int sidepad            = 10;       /* horizontal padding of bar */
 static const int extrabar           = 1;        /* 0 means no extra bar */
 static const char statussep         = ';';      /* separator between statuses */
 static const char *fonts[]          = { "GohuFont uni14 Nerd Font:pixelsize=14" };
