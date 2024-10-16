@@ -215,7 +215,6 @@ static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
-static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -764,14 +763,14 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		isCode = 0;
 	text = p;
 
-	w += 2; /* 1px padding on both sides */
+	w += len > 1 ? 4 : 0; /* 2px padding on right side */
 	ret = x = m->ww - sp * 2 - w;
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
 	drw_rect(drw, x, 0, w, bh, 1, 1);
-	x++;
+	x+=2; /* 2px padding on left side */
 
 	/* process status text */
 	i = -1;
@@ -891,7 +890,8 @@ drawbar(Monitor *m)
 		etwr = TEXTW(estextr) - lrpad + 2; /* 2px right padding */
 		drw_text(drw, m->ww - etwr -2 * sp, 0, etwr, bh, 0, estextr, 0);
 		etwl = TEXTW(estextl);
-		drw_text(drw, 0, 0, etwl, bh, 0, estextl, 0);
+		drw_text(drw, 2, 0, etwl, bh, 0, estextl, 0);
+		          /*  ^ 2 px left padding (no need to calculation)*/
 		drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
 	}
 }
