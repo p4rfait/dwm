@@ -171,7 +171,7 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
-static int drawstatusbar(Monitor *m, int bh, char* text);
+static int drawstatusbar(Monitor *m, int bh, int left, char* text);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -726,7 +726,7 @@ dirtomon(int dir)
 }
 
 int
-drawstatusbar(Monitor *m, int bh, char* stext) {
+drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 	int ret, i, w, x, len;
 	short isCode = 0;
 	char *text;
@@ -763,14 +763,16 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		isCode = 0;
 	text = p;
 
-	w += len > 1 ? 4 : 0; /* 2px padding on right side */
-	ret = x = m->ww - sp * 2 - w;
+	if (left) {
+		ret = x = 0;
+	} else {
+		ret = x = m->ww - sp * 2 - w;
+	}
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
 	drw_rect(drw, x, 0, w, bh, 1, 1);
-	x+=2; /* 2px padding on left side */
 
 	/* process status text */
 	i = -1;
@@ -847,7 +849,7 @@ drawbar(Monitor *m)
 
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
-		tw = m->ww - drawstatusbar(m, bh, stext) - sp * 2;
+		tw = m->ww - drawstatusbar(m, bh, 0, stext) - sp * 2;
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -887,14 +889,12 @@ drawbar(Monitor *m)
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		/* clear default bar draw buffer by drawing a blank rectangle */
 		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
-		etwr = TEXTW(estextr) - lrpad + 2; /* 2px right padding */
-		drw_text(drw, m->ww - etwr -2 * sp, 0, etwr, bh, 0, estextr, 0);
-		etwl = TEXTW(estextl);
-		drw_text(drw, 2, 0, etwl, bh, 0, estextl, 0);
-		          /*  ^ 2 px left padding (no need to calculation)*/
-		drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
-		/* NOTE: Delegar esta parte a drawstatusbar(), tal como en la linea 851*/
+		etwl = drawstatusbar(m, bh, 1, estextl);
+		etwr = drawstatusbar(m, bh, 0, estextr);
+	} else {
+		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
 	}
+	drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
 }
 
 void
