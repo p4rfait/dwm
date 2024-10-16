@@ -893,6 +893,7 @@ drawbar(Monitor *m)
 		drw_text(drw, 2, 0, etwl, bh, 0, estextl, 0);
 		          /*  ^ 2 px left padding (no need to calculation)*/
 		drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
+		/* NOTE: Delegar esta parte a drawstatusbar(), tal como en la linea 851*/
 	}
 }
 
