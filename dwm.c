@@ -838,7 +838,7 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 void
 drawbar(Monitor *m)
 {
-	int x, w, tw = 0, etwl = 0, etwr = 0;
+	int x, w, tw = 0;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
@@ -889,8 +889,8 @@ drawbar(Monitor *m)
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		/* clear default bar draw buffer by drawing a blank rectangle */
 		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
-		etwl = drawstatusbar(m, bh, 1, estextl);
-		etwr = drawstatusbar(m, bh, 0, estextr);
+		drawstatusbar(m, bh, 1, estextl);
+		drawstatusbar(m, bh, 0, estextr);
 	} else {
 		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
 	}
