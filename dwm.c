@@ -844,7 +844,7 @@ drawbar(Monitor *m)
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
-	if (!m->showbar)
+	if (!m->showbar && !m->extrabar)
 		return;
 
 	/* draw status first so it can be overdrawn by tags later */
@@ -1735,7 +1735,7 @@ setup(void)
 	lrpad = drw->fonts->h;
 	bh = drw->fonts->h + 2;
 	sp = sidepad;
-	vp = (topbar == 1) ? vertpad : - vertpad;
+	vp = vertpad;
 	updategeom();
 
 	/* init atoms */
@@ -2008,13 +2008,13 @@ updatebarpos(Monitor *m)
 	m->wh = m->mh;
 	if (m->showbar) {
 		m->wh = m->wh - vertpad - bh;
-		m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
+		m->by = m->topbar ? m->wy : m->wy + m->wh - vp;
 		m->wy = m->topbar ? m->wy + bh + vp : m->wy;
 	} else
 		m->by = -bh - vp;
 	if (m->extrabar) {
 		m->wh = m->wh - vertpad - bh;
-		m->eby = !m->topbar ? m->wy : m->wy + m->wh - vertpad;
+		m->eby = !m->topbar ? m->wy : m->wy + m->wh - vp;
 		m->wy = !m->topbar ? m->wy + bh + vp : m->wy;
 	} else
 		m->eby = -bh - vp;
