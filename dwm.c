@@ -2265,7 +2265,8 @@ warp(const Client *c)
 		 y > c->y - c->bw &&
 		 x < c->x + c->w + c->bw*2 &&
 		 y < c->y + c->h + c->bw*2) ||
-		(y > c->mon->by + vp && y < c->mon->by + bh + vp) ||
+		(y > c->mon->by && y < c->mon->by + bh + vp) ||
+		(y > c->mon->eby + vp ) ||
 		(c->mon->topbar && !y))
 		return;
 
