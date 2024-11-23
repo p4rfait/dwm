@@ -910,7 +910,6 @@ drawbar(Monitor *m)
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
 
 	if (m == selmon) { /* extra status is only drawn on selected monitor */
-		drw_setscheme(drw, scheme[SchemeNorm]);
 		/* clear default bar draw buffer by drawing a blank rectangle */
 		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
 		drawstatusbar(m, bh, 1, estextl);
