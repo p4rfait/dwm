@@ -19,10 +19,10 @@ static const char statussep         = ';';      /* separator between statuses */
 static const char *fonts[]          = { "GohuFont uni14 Nerd Font:pixelsize=14", "Noto Color Emoji:pixelsize=14" };
 static const char dmenufont[]       = "GohuFont uni14 Nerd Font:pixelsize=14";
 static const char dmenulines[]       = "20";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#282828";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#282828";
+static const char col_gray4[]       = "#222222";
 static const char col_accent[]      = "#fe8019";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
