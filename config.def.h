@@ -18,7 +18,7 @@ static const int extrabar           = 1;        /* 0 means no extra bar */
 static const char statussep         = ';';      /* separator between statuses */
 static const char *fonts[]          = { "GohuFont uni14 Nerd Font:pixelsize=14", "Noto Color Emoji:pixelsize=14" };
 static const char dmenufont[]       = "GohuFont uni14 Nerd Font:pixelsize=14";
-static const char dmenulines[]       = "20";
+static const char dmenulines[]      = "20";
 static const char col_gray1[]       = "#282828";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
