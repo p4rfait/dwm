@@ -280,7 +280,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 static Atom wmatom[WMLast], netatom[NetLast];
 static int running = 1;
 static Cur *cursor[CurLast];
-static Clr **scheme;
+static Clr **scheme, clrborder;
 static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
@@ -751,7 +751,7 @@ dirtomon(int dir)
 
 int
 drawstatusbar(Monitor *m, int bh, int left, char* stext) {
-	int ret, i, w, x, len;
+	int ret, i, w, x, y = borderpx, len;
 	short isCode = 0;
 	char *text;
 	char *p;
@@ -790,13 +790,13 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 	if (left) {
 		ret = x = 0;
 	} else {
-		ret = x = m->ww - sp * 2 - w;
+		ret = x = m->ww - sp * 2 - w - y;
 	}
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
-	drw_rect(drw, x, 0, w, bh, 1, 1);
+	drw_rect(drw, x, y, w, bh, 1, 1);
 
 	/* process status text */
 	i = -1;
@@ -806,7 +806,7 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 
 			text[i] = '\0';
 			w = TEXTW(text) - lrpad;
-			drw_text(drw, x, 0, w, bh, 0, text, 0);
+			drw_text(drw, x, y, w, bh, 0, text, 0);
 
 			x += w;
 
@@ -836,7 +836,7 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 					while (text[++i] != ',');
 					int rh = atoi(text + ++i);
 
-					drw_rect(drw, rx + x, ry, rw, rh, 1, 0);
+					drw_rect(drw, rx + x, ry + y, rw, rh, 1, 0);
 				} else if (text[i] == 'f') {
 					x += atoi(text + ++i);
 				}
@@ -850,7 +850,7 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 
 	if (!isCode) {
 		w = TEXTW(text) - lrpad;
-		drw_text(drw, x, 0, w, bh, 0, text, 0);
+		drw_text(drw, x, y, w, bh, 0, text, 0);
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
@@ -862,7 +862,9 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 void
 drawbar(Monitor *m)
 {
-	int x, w, tw = 0;
+ 	int x, y = borderpx, w, tw = 0;
+ 	int th = bh - y * 2;
+ 	int mw = m->ww - y * 2;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
@@ -871,9 +873,12 @@ drawbar(Monitor *m)
 	if (!m->showbar && !m->extrabar)
 		return;
 
+	XSetForeground(drw->dpy, drw->gc, clrborder.pixel);
+	XFillRectangle(drw->dpy, drw->drawable, drw->gc, 0, 0, m->ww, bh);
+
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
-		tw = m->ww - drawstatusbar(m, bh, 0, stext) - sp * 2;
+		tw = m->ww - drawstatusbar(m, th, 0, stext) - sp * 2;
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -881,30 +886,30 @@ drawbar(Monitor *m)
 		if (c->isurgent)
 			urg |= c->tags;
 	}
-	x = 0;
+	x = y;
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+		drw_text(drw, x, y, w, th, lrpad / 2, tags[i], urg & 1 << i);
 		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+			drw_rect(drw, x + boxs, y + boxs, boxw, boxw,
 				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
 				urg & 1 << i);
 		x += w;
 	}
 	w = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	x = drw_text(drw, x, y, w, th, lrpad / 2, m->ltsymbol, 0);
 
-	if ((w = m->ww - tw - x) > bh) {
+	if ((w = mw - tw - x - sp * 2 + borderpx * 2) > th) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-			drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2, m->sel->name, 0);
+			drw_text(drw, x, y, w, th, lrpad / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
-				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+				drw_rect(drw, x + boxs, y + boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
-			drw_rect(drw, x, 0, w - 2 * sp, bh, 1, 1);
+			drw_rect(drw, x, y, w, th, 1, 1);
 		}
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
@@ -1767,7 +1772,7 @@ setup(void)
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h;
-	bh = drw->fonts->h + user_bh;
+	bh = drw->fonts->h + user_bh + borderpx * 2;
 	sp = sidepad;
 	vp = (topbar == 1)? vertpad : - vertpad;
 	updategeom();
@@ -1796,6 +1801,7 @@ setup(void)
 	scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], 3);
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+	drw_clr_create(drw, &clrborder, col_borderbar);
 	/* init bars */
 	updatebars();
 	updatestatus();
