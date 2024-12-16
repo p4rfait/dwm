@@ -788,7 +788,7 @@ drawstatusbar(Monitor *m, int bh, int left, char* stext) {
 	text = p;
 
 	if (left) {
-		ret = x = 0;
+		ret = x = y;
 	} else {
 		ret = x = m->ww - sp * 2 - w - y;
 	}
@@ -864,7 +864,7 @@ drawbar(Monitor *m)
 {
  	int x, y = borderpx, w, tw = 0;
  	int th = bh - y * 2;
- 	int mw = m->ww - y * 2;
+	int mw = m->ww - y * 2 - sp * 2 ;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
@@ -901,7 +901,7 @@ drawbar(Monitor *m)
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, y, w, th, lrpad / 2, m->ltsymbol, 0);
 
-	if ((w = mw - tw - x - (sp * 2) - ( m == selmon? 0 : y ) + (borderpx * 2) ) > th) {
+	if ((w = m->ww - sp * 2 - tw - x - ( m == selmon? 0 : y ) ) > th) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
 			drw_text(drw, x, y, w, th, lrpad / 2, m->sel->name, 0);
@@ -914,14 +914,15 @@ drawbar(Monitor *m)
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
 
+	x = y;
 	if (m == selmon) { /* extra status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		/* clear default bar draw buffer by drawing a blank rectangle */
-		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
-		drawstatusbar(m, bh, 1, estextl);
-		drawstatusbar(m, bh, 0, estextr);
+		drw_rect(drw, x, y, mw, th, 1, 1);
+		drawstatusbar(m, th, 0, estextr);
+		drawstatusbar(m, th, 1, estextl);
 	} else {
-		drw_rect(drw, 0, 0, m->ww, bh, 1, 1);
+		drw_rect(drw, x, y, mw, th, 1, 1);
 	}
 	drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
 }
