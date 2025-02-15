@@ -20,9 +20,9 @@ static const char *fonts[]          = { "GohuFont uni14 Nerd Font:pixelsize=14",
 static const char dmenufont[]       = "GohuFont uni14 Nerd Font:pixelsize=14";
 static const char dmenulines[]      = "20";
 static const char col_gray1[]       = "#282828";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#222222";
+static const char col_gray2[]       = "#504945";
+static const char col_gray3[]       = "#ebdbb2";
+static const char col_gray4[]       = "#1d2021";
 static const char col_accent[]      = "#fe8019";
 static const char col_borderbar[]   = "#282828";
 static const char *colors[][3]      = {
