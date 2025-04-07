@@ -22,13 +22,13 @@ static const char col_rose[]          = "#ebbcba";
 // static const char col_pine[]          = "#31748f";
 // static const char col_foam[]          = "#9ccfd8";
 // static const char col_iris[]          = "#c4a7e7";
-static const char col_highlightlow[]  = "#21202e";
-// static const char col_highlightmed[]  = "#403d52";
+// static const char col_highlightlow[]  = "#21202e";
+static const char col_highlightmed[]  = "#403d52";
 // static const char col_highlighthigh[] = "#524f67";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_subtle, col_base, col_highlightlow },
+	[SchemeNorm] = { col_subtle, col_base, col_highlightmed },
 	[SchemeSel]  = { col_text, col_overlay, col_rose  },
 };
 
