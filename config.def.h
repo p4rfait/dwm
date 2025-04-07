@@ -1,21 +1,35 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char *fonts[]          = { "DepartureMono Nerd Font:pixelsize=11" };
+static const char dmenufont[]       = "DepartureMono Nerd Font:pixelsize=11";
+
+/* Rose Pine colorscheme */
+static const char col_base[]          = "#191724";
+// static const char col_surface[]       = "#1f1d2e";
+static const char col_overlay[]       = "#26233a";
+// static const char col_muted[]         = "#6e6a86";
+static const char col_subtle[]        = "#908caa";
+static const char col_text[]          = "#e0def4";
+// static const char col_love[]          = "#eb6f92";
+// static const char col_gold[]          = "#f6c177";
+static const char col_rose[]          = "#ebbcba";
+// static const char col_pine[]          = "#31748f";
+// static const char col_foam[]          = "#9ccfd8";
+// static const char col_iris[]          = "#c4a7e7";
+static const char col_highlightlow[]  = "#21202e";
+// static const char col_highlightmed[]  = "#403d52";
+// static const char col_highlighthigh[] = "#524f67";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_subtle, col_base, col_highlightlow },
+	[SchemeSel]  = { col_text, col_overlay, col_rose  },
 };
 
 /* tagging */
@@ -34,7 +48,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -45,7 +59,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -57,44 +71,64 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[]          = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base, "-nf", col_subtle, "-sb", col_overlay, "-sf", col_text, NULL };
+static const char *termcmd[]           = { "st", NULL };
+static const char *audiomute[]         = { "/usr/bin/wpctl", "set-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *audiolowervolume[]  = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_SINK@", "5%-", NULL };
+static const char *audioraisevolume[]  = { "/usr/bin/wpctl", "set-volume", "-l", "1", "@DEFAULT_SINK@", "5%+", NULL };
+static const char *audiomicmute[]      = { "/usr/bin/wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL };
+static const char *monbrightnessdown[] = { "/usr/bin/light", "-U", "5", NULL };
+static const char *monbrightnessup[]   = { "/usr/bin/light", "-A", "5", NULL };
+static const char *audioplay[]         = { "/usr/bin/playerctl", "play-pause", NULL };
+static const char *audiostop[]         = { "/usr/bin/playerctl", "stop", NULL };
+static const char *audioprev[]         = { "/usr/bin/playerctl", "previous", NULL };
+static const char *audionext[]         = { "/usr/bin/playerctl", "next", NULL };
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	/* modifier                     key                       function        argument */
+	{ MODKEY,                       XK_p,                     spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_Return,                spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_b,                     togglebar,      {0} },
+	{ MODKEY,                       XK_j,                     focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,                     focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,                     incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,                     incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,                     setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,                     setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Return,                zoom,           {0} },
+	{ MODKEY,                       XK_Tab,                   view,           {0} },
+	{ MODKEY|ShiftMask,             XK_c,                     killclient,     {0} },
+	{ MODKEY,                       XK_t,                     setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,                     setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,                     setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,                 setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,                 togglefloating, {0} },
+	{ MODKEY,                       XK_0,                     view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,                     tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,                 focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_period,                focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,                 tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,                tagmon,         {.i = +1 } },
+	TAGKEYS(                        XK_1,                                     0)
+	TAGKEYS(                        XK_2,                                     1)
+	TAGKEYS(                        XK_3,                                     2)
+	TAGKEYS(                        XK_4,                                     3)
+	TAGKEYS(                        XK_5,                                     4)
+	TAGKEYS(                        XK_6,                                     5)
+	TAGKEYS(                        XK_7,                                     6)
+	TAGKEYS(                        XK_8,                                     7)
+	TAGKEYS(                        XK_9,                                     8)
+	{ MODKEY|ShiftMask,             XK_q,                     quit,           {0} },
+	{ 0,                            XF86XK_AudioMute,         spawn,          {.v = audiomute } },
+	{ 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = audiolowervolume } },
+	{ 0,                            XF86XK_AudioRaiseVolume,  spawn,          {.v = audioraisevolume } },
+	{ 0,                            XF86XK_AudioMicMute,      spawn,          {.v = audiomicmute } },
+	{ 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = monbrightnessdown } },
+	{ 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = monbrightnessup } },
+	{ 0,                            XF86XK_AudioPlay,         spawn,          {.v = audioplay } },
+	{ 0,                            XF86XK_AudioStop,         spawn,          {.v = audiostop } },
+  { 0,                            XF86XK_AudioPrev,         spawn,          {.v = audioprev } },
+  { 0,                            XF86XK_AudioNext,         spawn,          {.v = audionext } },
 };
 
 /* button definitions */
