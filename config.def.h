@@ -6,8 +6,8 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "DepartureMono Nerd Font:pixelsize=11" };
-static const char dmenufont[]       = "DepartureMono Nerd Font:pixelsize=11";
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=9:antialias=true:autohint=true" };
+static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=9:antialias=true:autohint=true";
 
 /* Rose Pine colorscheme */
 static const char col_base[]          = "#191724";
