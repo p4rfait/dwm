@@ -104,6 +104,7 @@ static const char *audioplay[]         = { "/usr/bin/playerctl", "play-pause", N
 static const char *audiostop[]         = { "/usr/bin/playerctl", "stop", NULL };
 static const char *audioprev[]         = { "/usr/bin/playerctl", "previous", NULL };
 static const char *audionext[]         = { "/usr/bin/playerctl", "next", NULL };
+static const char *clipboard[]         = { "clipcat-menu", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key                       function        argument */
@@ -169,6 +170,7 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_AudioStop,         spawn,          {.v = audiostop } },
   { 0,                            XF86XK_AudioPrev,         spawn,          {.v = audioprev } },
   { 0,                            XF86XK_AudioNext,         spawn,          {.v = audionext } },
+  { MODKEY,                       XK_v,                        spawn,          {.v = clipboard } },
 };
 
 /* button definitions */
