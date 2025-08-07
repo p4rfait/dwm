@@ -11,8 +11,8 @@ static const unsigned int gappov    = 8;       /* vert outer gap between windows
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka Nerd Font:size=10:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Iosevka Nerd Font:size=10:antialias=true:autohint=true";
+static const char *fonts[]          = { "IosevkaTermSlab Nerd Font:size=10.5:antialias=true:autohint=true" };
+static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=10.5:antialias=true:autohint=true";
 
 /* Rose Pine colorscheme */
 static const char col_base[]          = "#191724";
