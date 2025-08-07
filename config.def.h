@@ -114,6 +114,7 @@ static const char *audiostop[]         = { "/usr/bin/playerctl", "stop", NULL };
 static const char *audioprev[]         = { "/usr/bin/playerctl", "previous", NULL };
 static const char *audionext[]         = { "/usr/bin/playerctl", "next", NULL };
 static const char *clipboard[]         = { "clipcat-menu", NULL };
+static const char *emoji[]             = { "bemoji", "-n", "-P5", NULL };
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -183,6 +184,7 @@ static const Key keys[] = {
   { 0,                            XF86XK_AudioPrev,         spawn,          {.v = audioprev } },
   { 0,                            XF86XK_AudioNext,         spawn,          {.v = audionext } },
   { MODKEY,                       XK_v,                     spawn,          {.v = clipboard } },
+  { MODKEY,                       XK_e,                     spawn,          {.v = emoji } },
 };
 
 /* button definitions */
