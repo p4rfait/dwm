@@ -37,6 +37,19 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_text, col_overlay, col_rose  },
 };
 
+static const char *const autostart[] = {
+	"xwallpaper", "--zoom", "/home/p4rfait/Pictures/Wallpapers/wallpaper.png", NULL,
+	"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
+	"/usr/bin/pipewire", NULL,
+	"/usr/bin/pipewire-pulse", NULL,
+	"/usr/bin/wireplumber", NULL,
+	"clipcatd", "--no-daemon", NULL,
+	"picom", NULL,
+	"slstatus", NULL,
+	"mset", "s", "off", "-dpms", NULL,
+	NULL /* terminate */
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
