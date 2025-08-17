@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 8;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 8;       /* vert inner gap between windows */
@@ -12,17 +12,35 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 8;       /* vertical padding of bar */
 static const int sidepad            = 8;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "IosevkaTermSlab Nerd Font:size=12" };
+static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+
+/* Rose Pine Palette */
+static const char col_base[] =           "#191724";
+static const char col_surface[] =        "#1f1d2e";
+static const char col_overlay[] =        "#26233a";
+static const char col_muted[] =          "#6e6a86";
+static const char col_subtle[] =         "#908caa";
+static const char col_text[] =           "#e0def4";
+static const char col_love[] =           "#eb6f92";
+static const char col_gold[] =           "#f6c177";
+static const char col_rose[] =           "#ebbcba";
+static const char col_pine[] =           "#31748f";
+static const char col_foam[] =           "#9ccfd8";
+static const char col_iris[] =           "#c4a7e7";
+static const char col_highlight_low[] =  "#21202e";
+static const char col_highlight_med[] =  "#403d52";
+static const char col_highlight_high[] = "#524f67";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_text, col_base, col_overlay },
+	[SchemeSel]  = { col_base, col_iris,  col_iris  },
 };
 
 /* tagging */
