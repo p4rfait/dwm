@@ -40,6 +40,17 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_base, col_iris,  col_iris  },
 };
 
+static const char *const autostart[] = {
+	"/usr/bin/pipewire", NULL,
+	"/usr/bin/pipewire-pulse", NULL,
+	"/usr/bin/wireplumber", NULL,
+	"clipcatd --no-daemon", NULL,
+	"xwallpaper", "--zoom", "/home/p4rfait/Pictures/Wallpapers/wallpaper.png", NULL,
+	"picom", NULL,
+	"slstatus", NULL,
+	NULL /* terminate */
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
