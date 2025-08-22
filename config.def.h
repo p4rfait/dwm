@@ -14,8 +14,8 @@ static const int vertpad            = 8;       /* vertical padding of bar */
 static const int sidepad            = 8;       /* horizontal padding of bar */
 static const int barborderpx        = 2;       /* border pixel of bar */
 static const int extrabarheight     = 2;       /* spacing around bar font */
-static const char *fonts[]          = { "IosevkaTermSlab Nerd Font:size=12" };
-static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=12";
+static const char *fonts[]          = { "IosevkaTermSlab Nerd Font:size=11" };
+static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=11";
 
 /* Rose Pine Palette */
 static const char col_base[] =           "#191724";
