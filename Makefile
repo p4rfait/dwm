@@ -20,6 +20,7 @@ dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
+	rm config.h
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
 dist: clean
@@ -42,4 +43,9 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all clean dist install uninstall
+run: dwm
+	Xephyr -screen 1600x900+0+0 -reset -terminate -extension GLX +xinerama +extension RANDR 2>/dev/null :1 &
+	sleep 0.1
+	DISPLAY=:1 ./dwm
+	
+.PHONY: all clean dist install uninstall run
