@@ -93,7 +93,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -108,10 +108,43 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+static const char *lock[]      = { "slock", NULL };
+static const char *clipboard[] = { "clipcat-menu", NULL };
+
+/* audio */
+static const char *upvol[]   = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.05+", "-l", "1", NULL };
+static const char *downvol[]  = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.05-", NULL };
+static const char *mute[]    = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
+static const char *micmute[] = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle", NULL };
+
+/* backlight */
+static const char *dimmer[]   = { "brightnessctl",  "--class=backlight" ,"set", "5%-", NULL };
+static const char *brighter[] = { "brightnessctl", "--class=backlight", "set", "5%+", NULL };
+
+/* multimedia */
+static const char *playpause[] = { "playerctl", "play-pause", NULL };
+static const char *stop[]      = { "playerctl", "stop", NULL };
+static const char *prev[]      = { "playerctl", "previous", NULL };
+static const char *next[]      = { "playerctl", "next", NULL };
+
+#include <X11/XF86keysym.h>
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY|Mod1Mask,              XK_l,      spawn,          {.v = lock} },
+  { MODKEY,                       XK_v,      spawn,          {.v = clipboard} },
+  { 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = upvol } },
+  { 0, XF86XK_AudioLowerVolume,              spawn,          {.v = downvol } },
+  { 0, XF86XK_AudioMute,                     spawn,          {.v = mute } },
+  { 0, XF86XK_AudioMicMute,                  spawn,          {.v = micmute } },
+  { 0, XF86XK_MonBrightnessDown,             spawn,          {.v = dimmer } },
+  { 0, XF86XK_MonBrightnessUp,               spawn,          {.v = brighter } },
+  { 0, XF86XK_AudioPlay,	                   spawn,          {.v = playpause } },
+  { 0, XF86XK_AudioStop,	                   spawn,          {.v = stop } },
+  { 0, XF86XK_AudioPrev,	                   spawn,          {.v = prev } },
+  { 0, XF86XK_AudioNext,	                   spawn,          {.v = next } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
