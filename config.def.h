@@ -43,7 +43,10 @@ static const char *colors[][3]      = {
 static const char *const autostart[] = {
 	"xrandr", "--output", "DisplayPort-1", "--mode", "1920x1080", "--rate", "165", "--primary", 
 						"--output", "HDMI-A-0", "--mode", "1920x1080", "--rate", "75", "--left-of", "DisplayPort-1", NULL,
-	"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
+	/* Gentoo: */
+	"/usr/libexec/polkit-gnome-authentication-agent-1", NULL,
+	/* Artix: */
+	// "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
 	"/usr/bin/pipewire", NULL,
 	"/usr/bin/pipewire-pulse", NULL,
 	"/usr/bin/wireplumber", NULL,
