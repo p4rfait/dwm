@@ -50,7 +50,7 @@ static const char *const autostart[] = {
 	"/usr/bin/pipewire", NULL,
 	"/usr/bin/pipewire-pulse", NULL,
 	"/usr/bin/wireplumber", NULL,
-	"clipcatd --no-daemon", NULL,
+	"clipcatd", "--no-daemon", NULL,
 	"xwallpaper", "--zoom", "/home/p4rfait/Pictures/Wallpapers/wallpaper.png", NULL,
 	"picom", NULL,
 	"slstatus", NULL,
