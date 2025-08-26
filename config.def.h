@@ -12,32 +12,33 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 8;       /* vertical padding of bar */
 static const int sidepad            = 8;       /* horizontal padding of bar */
-static const int barborderpx        = 2;       /* border pixel of bar */
+static const int barborderpx        = 5;       /* border pixel of bar */
 static const int extrabarheight     = 2;       /* spacing around bar font */
 static const char *fonts[]          = { "IosevkaTermSlab Nerd Font:size=11" };
 static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=11";
 
-/* Rose Pine Palette */
-static const char col_base[] =           "#191724";
-static const char col_surface[] =        "#1f1d2e";
-static const char col_overlay[] =        "#26233a";
-static const char col_muted[] =          "#6e6a86";
-static const char col_subtle[] =         "#908caa";
-static const char col_text[] =           "#e0def4";
-static const char col_love[] =           "#eb6f92";
-static const char col_gold[] =           "#f6c177";
-static const char col_rose[] =           "#ebbcba";
-static const char col_pine[] =           "#31748f";
-static const char col_foam[] =           "#9ccfd8";
-static const char col_iris[] =           "#c4a7e7";
-static const char col_highlight_low[] =  "#21202e";
-static const char col_highlight_med[] =  "#403d52";
-static const char col_highlight_high[] = "#524f67";
+/* Gruvbox Palette */
+static const char col_bg[]           = "#282828";
+static const char col_bg2[]          = "#504945";
+static const char col_fg[]           = "#ebdbb2";
+static const char col_red[]          = "#cc241d";
+static const char col_light_red[]    = "#fb4934";
+static const char col_gren[]         = "#98971a";
+static const char col_light_green[]  = "#b8bb26";
+static const char col_yellow[]       = "#d79921";
+static const char col_light_yellow[] = "#fabd2f";
+static const char col_blue[]         = "#458588";
+static const char col_light_blue[]   = "#83a598";
+static const char col_purple[]       = "#b16286";
+static const char col_light_purple[] = "#d3869b";
+static const char col_aqua[] 			   = "#689d6a";
+static const char col_light_aqua[]   = "#8ec07c";
+static const char col_gray[] = "#a89984";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_text, col_base, col_overlay },
-	[SchemeSel]  = { col_base, col_iris,  col_iris  },
+	[SchemeNorm] = { col_fg, col_bg, col_bg2 },
+	[SchemeSel]  = { col_bg, col_fg, col_fg  },
 };
 
 static const char *const autostart[] = {
