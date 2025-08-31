@@ -117,6 +117,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const char *lock[]      = { "slock", NULL };
 static const char *clipboard[] = { "clipcat-menu", NULL };
+static const char *emoji[]     = { "bemoji", "-n", "-P5", NULL };
 
 /* audio */
 static const char *upvol[]   = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.05+", "-l", "1", NULL };
@@ -143,6 +144,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
   { MODKEY|Mod1Mask,              XK_l,      spawn,          {.v = lock} },
   { MODKEY,                       XK_v,      spawn,          {.v = clipboard} },
+  { MODKEY,                       XK_e,      spawn,          {.v = emoji} },
   { 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = upvol } },
   { 0, XF86XK_AudioLowerVolume,              spawn,          {.v = downvol } },
   { 0, XF86XK_AudioMute,                     spawn,          {.v = mute } },
