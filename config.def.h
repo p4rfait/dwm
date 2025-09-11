@@ -19,24 +19,22 @@ static const char dmenufont[]       = "IosevkaTermSlab Nerd Font:size=11";
 
 /* Gruvbox Palette */
 static const char col_bg[]           = "#282828";
-static const char col_bg_h[]         = "#1d2021";
-static const char col_bg_s[]         = "#32302f";
 static const char col_bg2[]          = "#504945";
 static const char col_fg[]           = "#ebdbb2";
 static const char col_fg0[]          = "#fbf1c7";
-static const char col_red[]          = "#cc241d";
-static const char col_light_red[]    = "#fb4934";
-static const char col_green[]        = "#98971a";
-static const char col_light_green[]  = "#b8bb26";
-static const char col_yellow[]       = "#d79921";
-static const char col_light_yellow[] = "#fabd2f";
-static const char col_blue[]         = "#458588";
-static const char col_light_blue[]   = "#83a598";
-static const char col_purple[]       = "#b16286";
-static const char col_light_purple[] = "#d3869b";
-static const char col_aqua[] 			   = "#689d6a";
-static const char col_light_aqua[]   = "#8ec07c";
-static const char col_gray[] = "#a89984";
+// static const char col_red[]          = "#cc241d";
+// static const char col_light_red[]    = "#fb4934";
+// static const char col_green[]        = "#98971a";
+// static const char col_light_green[]  = "#b8bb26";
+// static const char col_yellow[]       = "#d79921";
+// static const char col_light_yellow[] = "#fabd2f";
+// static const char col_blue[]         = "#458588";
+// static const char col_light_blue[]   = "#83a598";
+// static const char col_purple[]       = "#b16286";
+// static const char col_light_purple[] = "#d3869b";
+// static const char col_aqua[] 			   = "#689d6a";
+// static const char col_light_aqua[]   = "#8ec07c";
+// static const char col_gray[] = "#a89984";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
